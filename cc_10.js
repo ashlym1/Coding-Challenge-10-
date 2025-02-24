@@ -50,7 +50,7 @@ console.log(prod1.getDetails());
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5" (Stock reduced)
 
 //  Task 3 - Creating an Inventory Class 
-   class Inventory { 
+  class Inventory {
     constructor() { 
         this.products= [];// Array to store products instances
         this.orders=[] // Array to store orders 
@@ -60,19 +60,27 @@ console.log(prod1.getDetails());
         this.products.push(product);
     }
     // method  to list all products in the inventory 
-    listProducts() { 
-        this.products.forEach(product=> console.log(product.getDetails()));
-    }
-   
+        listOrders() {
+            this.orders.forEach(order => console.log(order.getOrderDetails()));
+        }
+    
+        restockProduct(productId, quantity) { 
+            const product = this.products.find(p => p.id === productId);
+            if (product) {
+                product.stock += quantity;
+                console.log(`Restocked ${product.name}. New stock: ${product.stock}`);
+            } else {
+                console.log(`Product with ID ${productId} not found.`);
+            }
+        }
+    }  //    
    // Test Cases : 
-   const inventory = new Inventory();
-   inventory.addProduct(prod1);
-   inventory.listProducts(); 
+
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5"
 
 // Task 4: Implementing Order Management 
 // Method to place an order if stock is available
-placeOrder(orderId, product, quantity) { 
+   placeOrder(orderId, product, quantity) { 
     if (product.stock >= quantity) {
         const newOrder = new Order(orderId, product, quantity);
         this.orders.push(newOrder);
@@ -80,12 +88,10 @@ placeOrder(orderId, product, quantity) {
     } else {
         console.log(`Insufficient stock for product: ${product.name}`);
     }
-}  
- 
+} 
   // Method to list all placed orders
   listOrders() {
     this.orders.forEach(order => console.log(order.getOrderDetails()));
-}
 }
 // Test Cases :
 inventory.placeOrder(601, prod1, 2);
