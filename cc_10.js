@@ -79,7 +79,7 @@ inventory.listProducts();
     }else{
         console.log(`Insufficent stock for product:${product.name} `);
     }
- }
+ 
   // Method to list all placed orders
     listOrders() {
         this.orders.forEach(order=>console.log(order.getOrderDetails()));
@@ -90,3 +90,20 @@ inventory.listOrders();
 // Expected output: "Order ID: 601, Product: Laptop, Quantity: 2, Total Price: $2400"
 console.log(prod1.getDetails());
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
+
+// Task 5 : Implementing Product Restocking 
+ // method to restock a productid 
+ restockProdcut(productId,quantity) {
+    const product = this.product.find(p=>p.id=== productId);
+    if(product) {
+        product.stock += quantity;
+        console.log('Restocked ${product.name}.New stock ${product.stock}');
+    }else{
+        console.log(`Product with ID ${productId} not foung.`);
+    }
+}
+ } 
+ // Test case : 
+ inventory.restockProduct(101, 5);
+console.log(prod1.getDetails()); 
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 8"
