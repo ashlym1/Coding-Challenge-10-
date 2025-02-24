@@ -60,7 +60,7 @@ console.log(prod1.getDetails());
     }
     // mehthos to list all products in the inventory 
     listProducts() { 
-        this.products.forEach(product=> console.log(log product.getDetails()));
+        this.products.forEach(product=> console.log(product.getDetails()));
     }
    }
    // Test Cases : 
