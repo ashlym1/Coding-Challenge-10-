@@ -31,9 +31,9 @@ console.log(prod1.getDetails());
     constructor(orderId,product,quantity) {
         this.orderId=orderId; // Unique order ID 
         this.product= product; // instance of product 
-        this.quantity= qunatiry// quality ordered 
+        this.quantity= quantity; // quality ordered 
      // Reduce the stock when order is created 
-     this.product.updateStock(this.quality);
+     this.product.updateStock(this.quantity);
     }
     //Methd to get order details 
     getOrderDetails () {
@@ -53,37 +53,40 @@ console.log(prod1.getDetails());
    class Inventory { 
     constructor() { 
         this.products= [];// Array to store products instances
+        this.orders=[] // Array to store orders 
     }
     // Method to add a product to the inventory 
     addProduct(product) {
-        this.products.push (product);
+        this.products.push(product);
     }
-    // mehthos to list all products in the inventory 
+    // method  to list all products in the inventory 
     listProducts() { 
         this.products.forEach(product=> console.log(product.getDetails()));
     }
-   }
+   
    // Test Cases : 
    const inventory = new Inventory();
-inventory.addProduct(prod1);
-inventory.listProducts();
+   inventory.addProduct(prod1);
+   inventory.listProducts(); 
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5"
 
 // Task 4: Implementing Order Management 
 // Method to place an order if stock is available
- placeOrder(orderId,product,quantity) { 
-    if(product.stock >= quantity) {
-        const newOrder= new Order(orderId, product, quantity);
-        this.order.push(newOrder);
+placeOrder(orderId, product, quantity) { 
+    if (product.stock >= quantity) {
+        const newOrder = new Order(orderId, product, quantity);
+        this.orders.push(newOrder);
         console.log(`Order placed: ${newOrder.getOrderDetails()}`);
-    }else{
-        console.log(`Insufficent stock for product:${product.name} `);
+    } else {
+        console.log(`Insufficient stock for product: ${product.name}`);
     }
+}  
  
   // Method to list all placed orders
-    listOrders() {
-        this.orders.forEach(order=>console.log(order.getOrderDetails()));
-    }
+  listOrders() {
+    this.orders.forEach(order => console.log(order.getOrderDetails()));
+}
+}
 // Test Cases :
 inventory.placeOrder(601, prod1, 2);
 inventory.listOrders();
@@ -93,16 +96,15 @@ console.log(prod1.getDetails());
 
 // Task 5 : Implementing Product Restocking 
  // method to restock a productid 
- restockProdcut(productId,quantity) {
-    const product = this.product.find(p=>p.id=== productId);
-    if(product) {
+ restockProduct(productId, quantity) { // 
+    const product = this.products.find(p => p.id === productId); // 
+    if (product) {
         product.stock += quantity;
-        console.log('Restocked ${product.name}.New stock ${product.stock}');
-    }else{
-        console.log(`Product with ID ${productId} not foung.`);
+        console.log(`Restocked ${product.name}. New stock: ${product.stock}`); // 
+    } else {
+        console.log(`Product with ID ${productId} not found.`); //
     }
 }
- } 
  // Test case : 
  inventory.restockProduct(101, 5);
 console.log(prod1.getDetails()); 
